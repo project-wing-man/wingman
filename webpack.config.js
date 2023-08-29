@@ -55,4 +55,5 @@ module.exports = {
     liveReload: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
+  
 };
