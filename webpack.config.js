@@ -1,5 +1,5 @@
-const prod = process.env.NODE_ENV === 'production';
-
+const prod = process.env.NODE_ENV === 'development';
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -7,8 +7,10 @@ module.exports = {
   mode: prod ? 'production' : 'development',
   entry: './src/index.tsx',
   output: {
-    path: __dirname + '/dist/',
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: "/",
+    clean: true,
   },
   module: {
     rules: [
@@ -24,13 +26,42 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]',
+        },
+        exclude: /node_modules/,
+      },
     ]
   },
-  devtool: prod ? undefined : 'source-map',
+  // devtool: prod ? undefined : 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: path.join(__dirname, './index.html'),
     }),
     new MiniCssExtractPlugin(),
   ],
+  target: "web",
+  devServer: {
+    historyApiFallback: true,
+    host: 'localhost',
+    port: '3000',
+    static: {
+      publicPath: '/',
+      directory: path.resolve(__dirname, 'dist'),
+    },
+    proxy: {
+      '/server': {
+        target: 'http://localhost:8080',
+        secure: false,
+      },
+    },
+    open: true,
+    hot: true,
+    liveReload: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  },
+  
 };
