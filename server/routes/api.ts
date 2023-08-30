@@ -1,11 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const flightController = require('../controllers/flightController');
-const axios = require('axios');
+// const express = require('express');
+// const router = express.Router();
+// const flightController = require('../controllers/flightController');
+// const axios = require('axios');
 
 const flightSearchParams = {
 
 }
+
+// module.exports = router;
 
 //https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode={OUR PARAM HERE}destinationLocationCode={OUR TEXT}&adults={A NUMBER HERE }&nonStop={BOOLEAN DATA}&currencyCode=USD&departureDate={INSERT DATE}
 

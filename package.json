@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.tsx",
+
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --open --config webpack.config.js",
-    "server": "nodemon server/server.js",
+    "start": "webpack-dev-server --open --config webpack.config.cjs",
+    "server": "nodemon build/server/server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "keywords": [],

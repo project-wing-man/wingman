@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 8080;
-const apiRouter = './routes/api';
+//const apiRouter = require('./routes/api');
 
 //@ts-ignore 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 })
 
-app.use('/api', apiRouter);
+//app.use('/api', apiRouter);
 
 //global error handler
 //@ts-ignore 
@@ -23,4 +23,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-export default app;
+module.exports = app;

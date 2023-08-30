@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { Interface } from "readline";
-import axios from 'axios';
+// import { Interface } from "readline";
+const axios = require('axios')
 import createHttpError from 'http-errors';
-import { create } from "domain";
+// import { create } from "domain";
 
 
 
@@ -19,10 +19,7 @@ const flightController: flightControllerInterface = {
     try {
       const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
       const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&adults=${adults}&nonStop=true&currencyCode=USD&departureDate=${departureDate}`
-      //const { data: { results } } = await axios.get(url);
-    //   const { data: { results } } = await axios.get(url);
-    //   res.locals.data = results;
-    //   console.log(results);
+
     const flightResponse = await axios.get(url, {
         headers: {
           Authorization: 'Bearer N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5' //client Id
