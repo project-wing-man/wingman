@@ -5,7 +5,8 @@
   "main": "./src/index.tsx",
   "scripts": {
     "dev": "webpack serve --port 3000",
-    "backend": "server/server.ts"
+    "backend": "server/server.ts",
+    "server": "nodemon build/server/server.js"
   },
   "keywords": [],
   "author": "",

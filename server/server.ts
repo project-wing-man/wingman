@@ -3,6 +3,7 @@ const app = express();
 const port = 8080;
 const apiRouter = './routes/api';
 
+//@ts-ignore 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 })
@@ -10,6 +11,7 @@ app.get('/', (req, res) => {
 app.use('/api', apiRouter);
 
 //global error handler
+//@ts-ignore 
 app.use((err, req, res, next) => {
   res.status(500).send({
     status: 500,
