@@ -16,12 +16,12 @@ export default function FlightResultCard() {
 
     return (
         <>
-            <Card variant='outlined' sx={{maxWidth: 900}}>
+            <Card variant='outlined' sx={{maxWidth: 900, margin: '.5em'}}>
                 <CardContent sx={{ display: "flex", maxWidth: 900}} >
                     <Box sx={{}}>
                         <img src=""></img>
                     </Box>
-                    <Box sx={{ display: "flex" , flexDirection: "column", width: '60%' }}>
+                    <Box sx={{ display: "flex" , flexDirection: "column", width: 'fit-content' }}>
                         <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
                             Delta
                         </Typography>
@@ -43,21 +43,13 @@ export default function FlightResultCard() {
                         </Box>
 
                     </Box>
-                    <Box sx={{ display: 'flex', flexDirection: "column", alignItems: 'center', width: '30%' }}>
+                    <Box sx={{ margin: '1em', display: 'flex', flexDirection: "column", alignItems: 'flex-end', width: '30%' }}>
                         <Typography sx={{ fontSize: 40 }} color="text.primary" gutterBottom>
                             $129.00
                         </Typography>
                         <Button variant='contained' size="medium">Book This Flight</Button>
                     </Box>
                 </CardContent>
-                <CardActions sx={{ display: 'flex', justifyContent: 'flex-end'}}>
-                    <Box >
-                        
-                    </Box>
-                    <Box sx={{ minWidth: '5%'}}>
-
-                    </Box>
-                </CardActions>
             </Card>
         </>
     )

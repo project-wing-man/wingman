@@ -20,6 +20,9 @@ export default function App() {
 
     return (
         <div className='app-container'>
+            <div className='search-container'>
+                <h1>Search Bar</h1>
+            </div>
             <div className='results-container'>
                 {flightCards[0] ? 
                 <div className='results-container'>
