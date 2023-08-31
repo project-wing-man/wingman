@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-// import { Interface } from "readline";
-const axios = require('axios')
+import axios from 'axios';
 import createHttpError from 'http-errors';
-// import { create } from "domain";
-
 
 
 
@@ -20,16 +17,21 @@ const flightController: flightControllerInterface = {
       const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
       const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&adults=${adults}&nonStop=true&currencyCode=USD&departureDate=${departureDate}`
 
+      console.log(url);
+
     const flightResponse = await axios.get(url, {
         headers: {
           Authorization: 'Bearer N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5' //client Id
         }
     });
+    console.log(flightResponse);
+  
     const flightResults = flightResponse.data;
+    console.log(flightResults);
     const flights = flightResults;
 
-    res.locals.flights;
-    
+    res.locals.flights = flightResults;
+
       return next()
     } catch (err) {
       return next(createHttpError(400, 'Could not retrieve your airline origin or destination'));
