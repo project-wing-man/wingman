@@ -1,16 +1,10 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import '../src/index.css'
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+const React = require('react');
+const createRoot = require('react-dom/client')
 
 
-const container = document.getElementById('app-root') as HTMLElement;
-const root = createRoot(container);
-root.render(<App />);
+const container = document.getElementById('app-root');
+const root = createRoot(container)
+root.render(<h1>poopy</h1>)
 
 
 
