@@ -1,12 +1,19 @@
 .app-container {
+    background-image: url('./assets/sunsetFlight.png');
+    color: orange;
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .results-container {
+    max-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;
+    overflow-y: scroll;
 }

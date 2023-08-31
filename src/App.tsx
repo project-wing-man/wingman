@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 
 export default function App() {
 
-    const [flights, setFlights] = useState([1,2,3]);
+    const [flights, setFlights] = useState([1, 2, 3, 4, 5, 6]);
 
     const flightCards: ReactElement[] = [];
     
