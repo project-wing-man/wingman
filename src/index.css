@@ -1,5 +1,7 @@
 .app-container {
     background-image: url('./assets/sunsetFlight.png');
+    background-size: cover;
+    backdrop-filter: blur(100px);
     color: orange;
     min-height: 100vh;
     min-width: 100vw;
@@ -8,8 +10,15 @@
     align-items: center;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
 .results-container {
-    max-height: 100vh;
+    max-height: 85vh;
     min-width: 100vw;
     display: flex;
     flex-direction: column;

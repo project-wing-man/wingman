@@ -12,7 +12,7 @@
     "sourceMap": true,
     "target": "ES6",
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "server/**/*"],
   "exclude": [
     "node_modules"
   ]

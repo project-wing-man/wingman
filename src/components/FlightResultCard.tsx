@@ -16,7 +16,7 @@ export default function FlightResultCard() {
 
     return (
         <>
-            <Card variant='outlined' sx={{maxWidth: 1300, minWidth: 1000, minHeight: 170, margin: '.5em', border: 3, borderRadius: 4, borderColor: 'orange', }}>
+            <Card variant='outlined' sx={{maxWidth: 1300, minWidth: 1000, minHeight: 170, margin: '.5em', border: 3, borderRadius: 4, borderColor: 'orange', opacity: '80%' }}>
                 <CardContent sx={{ display: "flex", maxWidth: '100%'}} >
                     <Box sx={{}}>
                         <img src=""></img>
@@ -26,13 +26,13 @@ export default function FlightResultCard() {
                             Delta
                         </Typography>
                         <Box sx={{display: "flex", justifyContent: "space-between", minWidth: 400}}>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
                                 7:28 - 9:54
                             </Typography>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
                                 Non-Stop
                             </Typography>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
                                 Flight Duration
                             </Typography>
                         </Box>
@@ -47,7 +47,7 @@ export default function FlightResultCard() {
                         <Typography sx={{ fontSize: 40 }} color="text.primary" gutterBottom>
                             $129.00
                         </Typography>
-                        <Button variant='contained' size="medium">Book This Flight</Button>
+                        <Button variant='contained' size="small" sx={{opacity: '100%'}}>Save This Flight</Button>
                     </Box>
                 </CardContent>
             </Card>

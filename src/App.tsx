@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import FlightResultCard from './components/FlightResultCard';
 import { ReactElement } from 'react';
+import FlightResultCard from './components/FlightResultCard';
+import FlightFilter from './components/FlightFilter';
+import OriginInput from './components/Inputs';
 
 export default function App() {
 
@@ -21,7 +23,8 @@ export default function App() {
     return (
         <div className='app-container'>
             <div className='search-container'>
-                <h1>Search Bar</h1>
+                <FlightFilter></FlightFilter>
+                <OriginInput></OriginInput>
             </div>
             <div className='results-container'>
                 {flightCards[0] ? 
