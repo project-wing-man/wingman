@@ -1,56 +1,54 @@
 import { Request, Response, NextFunction } from "express";
-// import { Interface } from "readline";
-const axios = require('axios')
+import axios from 'axios';
 import createHttpError from 'http-errors';
-// import { create } from "domain";
 
+var Amadeus = require('amadeus');
 
+const apiKey = 'N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5';
+const apiSecret = 'xYIpqobcnEvY9x3B';
 
+var amadeus = new Amadeus({
+  clientId: apiKey,
+  clientSecret: apiSecret
+});
 
 interface flightControllerInterface {
   fetchFlights: (req: Request, res: Response, next: NextFunction) => Promise<void>, 
 }
 
-//https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&adults=1&nonStop=true&currencyCode=USD&departureDate=2023-09-02
-
-
 const flightController: flightControllerInterface = {
   fetchFlights: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
-      const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&adults=${adults}&nonStop=true&currencyCode=USD&departureDate=${departureDate}`
+      const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&max=9`;
 
-    const flightResponse = await axios.get(url, {
+
+      //curl "https://test.api.amadeus.com/v1/security/oauth2/token" \
+    //  -H "Content-Type: application/x-www-form-urlencoded" \
+    //  -d "grant_type=client_credentials&client_id=N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5&client_secret=xYIpqobcnEvY9x3B"
+
+      const response = await axios.get(url, {
         headers: {
-          Authorization: 'Bearer N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5' //client Id
+          Authorization: "Bearer elTn87A6ylNJ134iPVHq3tiZGvj0"
         }
-    });
-    const flightResults = flightResponse.data;
-    const flights = flightResults;
+      });
 
-    res.locals.flights;
-    
-      return next()
+      // const flightResponse = await amadeus.get(url, {
+//   headers: {
+//           Authorization: authorizationHeader
+//         }
+// })
+
+      console.log('flight response is here --->', response);
+  
+      res.locals.flights = response.data;
+      console.log('data', res.locals.flights);
+      return next();
     } catch (err) {
+      console.error('API Request Error:', err);
       return next(createHttpError(400, 'Could not retrieve your airline origin or destination'));
     }
   },
-
-
 }
 
 export default flightController;
-
-
-
-//const usersController: usersControllerInterface = {
-  // fetchUsers: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  //   try {
-  //     const allUsers = await db.query('SELECT * FROM "public"."users" LIMIT 100')
-  //     if (!allUsers.rowCount) throw createHttpError(400, 'Users not found');
-  //     res.locals.fetchedUsers = allUsers.rows;
-  //     return next()
-  //   } catch (err) {
-  //     return next(createHttpError(400, 'Could not fetch all users in usersController.fetchUsers'))
-  //   }
-  // },
