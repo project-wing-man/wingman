@@ -1,21 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import FlightResultCard from './components/FlightResultCard';
-export default function App() {
-    const [flights, setFlights] = useState([1, 2, 3]);
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importStar(require("react"));
+const FlightResultCard_1 = __importDefault(require("./components/FlightResultCard"));
+function App() {
+    const [flights, setFlights] = (0, react_1.useState)([1, 2, 3]);
     const flightCards = [];
     flights.forEach((flight) => {
-        flightCards.push(React.createElement(FlightResultCard, null));
+        flightCards.push(react_1.default.createElement(FlightResultCard_1.default, null));
     });
-    useEffect(() => {
+    (0, react_1.useEffect)(() => {
         flights.forEach((flight) => {
-            flightCards.push(React.createElement(FlightResultCard, null));
+            flightCards.push(react_1.default.createElement(FlightResultCard_1.default, null));
         });
     }, [flights]);
-    return (React.createElement("div", { className: 'app-container' },
-        React.createElement("div", { className: 'search-container' },
-            React.createElement("h1", null, "Search Bar")),
-        React.createElement("div", { className: 'results-container' }, flightCards[0] ?
-            React.createElement("div", { className: 'results-container' }, ...flightCards)
+    return (react_1.default.createElement("div", { className: 'app-container' },
+        react_1.default.createElement("div", { className: 'search-container' },
+            react_1.default.createElement("h1", null, "Search Bar")),
+        react_1.default.createElement("div", { className: 'results-container' }, flightCards[0] ?
+            react_1.default.createElement("div", { className: 'results-container' }, ...flightCards)
             : null)));
 }
+exports.default = App;
 //# sourceMappingURL=App.js.map
