@@ -28,7 +28,7 @@ const flightController = {
             const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&max=9`;
             const response = yield axios_1.default.get(url, {
                 headers: {
-                    Authorization: "Bearer elTn87A6ylNJ134iPVHq3tiZGvj0"
+                    Authorization: "Bearer sHTL4gBGmVMluUdoTaUAouMK4j4I"
                 }
             });
             console.log('flight response is here --->', response);

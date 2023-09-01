@@ -23,13 +23,13 @@ const flightController: flightControllerInterface = {
       const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&max=9`;
 
 
-      //curl "https://test.api.amadeus.com/v1/security/oauth2/token" \
+    //   curl "https://test.api.amadeus.com/v1/security/oauth2/token" \
     //  -H "Content-Type: application/x-www-form-urlencoded" \
     //  -d "grant_type=client_credentials&client_id=N0xnvHIxPAvhBw8JnmAG4xU9ZYiuQdL5&client_secret=xYIpqobcnEvY9x3B"
 
       const response = await axios.get(url, {
         headers: {
-          Authorization: "Bearer elTn87A6ylNJ134iPVHq3tiZGvj0"
+          Authorization: "Bearer sHTL4gBGmVMluUdoTaUAouMK4j4I"
         }
       });
 

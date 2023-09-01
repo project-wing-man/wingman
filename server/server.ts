@@ -3,6 +3,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import path from 'path';
 import apiRouter from './routes/api';
 import { isHttpError } from 'http-errors';
+import userRouter from './routes/userRoutes';
 
 const app: Express = express();
 const port = 8080;
@@ -11,10 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 //protected route for our api
-app.use('/api', apiRouter, (req: Request, res: Response) => {
-  //res.send('Howdy')
-  res.status(200).json(res.locals.fetchFlights);
-});
+app.use('/api', apiRouter)
 
 app.get('/', (req: Request, res: Response) => {
   console.log('line 11')
@@ -34,6 +32,9 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/js/index.js', (req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, '../src/index.tsx'));
 });
+
+app.use('/user', userRouter,)
+
 
 //404 error handling
 app.use('*', (req: Request, res: Response) => {
