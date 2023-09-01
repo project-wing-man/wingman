@@ -3,10 +3,10 @@ const express = require('express');
 const app = express();
 const port = 8080;
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello');
 });
 app.use('/api', ((req, res) => {
-    res.send('Hello World!');
+    res.send('Hello!');
 }));
 app.use((err, req, res, next) => {
     res.status(500).send({

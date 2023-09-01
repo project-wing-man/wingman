@@ -5,12 +5,12 @@ const port = 8080;
 
 //@ts-ignore 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello');
 })
 
 //@ts-ignore
 app.use('/api', ((req, res) => {
-  res.send('Hello World!');
+  res.send('Hello!');
 }));
 
 //global error handler

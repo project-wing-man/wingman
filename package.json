@@ -4,7 +4,6 @@
   "description": "",
   "main": "./src/index.tsx",
   "scripts": {
-    "watch": "watch 'npm run build' ./",
     "build": "concurrently \"webpack --mode production\" \"tsc\"",
     "start": "webpack-dev-server --open --config webpack.config.cjs",
     "server": "nodemon build/server/server.js",
@@ -27,7 +26,7 @@
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "ts-loader": "^9.4.4",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
@@ -50,6 +49,7 @@
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.11",
     "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
     "watch": "^1.0.2"
   }
 }
