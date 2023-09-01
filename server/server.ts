@@ -11,9 +11,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 //protected route for our api
-app.use('/', apiRouter, (req: Request, res: Response) => {
+app.use('/api', apiRouter, (req: Request, res: Response) => {
   //res.send('Howdy')
-  res.status(200).json(res.locals.fetchFlights)
+  res.status(200).json(res.locals.fetchFlights);
 });
 
 app.get('/', (req: Request, res: Response) => {

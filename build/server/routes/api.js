@@ -1,13 +1,13 @@
-// import express from "express";
-// import flightController from "../controllers/flightController";
-
-const express = require('express');
-const flightController = require("../controllers/flightController")
-
-const router = express.Router();
-router.get('/', flightController.fetchFlights, (req, res) => {
-    res.status(200).json(res.locals.fetchFlights);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const flightController_1 = __importDefault(require("../controllers/flightController"));
+const router = express_1.default.Router();
+router.get('/', flightController_1.default.fetchFlights, (req, res) => {
+    res.status(200).json(res.locals.flights);
 });
-// export default router;
-module.exports = router;
+exports.default = router;
 //# sourceMappingURL=api.js.map

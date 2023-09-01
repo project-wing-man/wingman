@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "module": "ES6",
+    "module": "CommonJS",
     "noImplicitAny": true,
     "outDir": "./build",
     "esModuleInterop": true,
@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
-    "target": "es6",
+    "target": "ES6",
   },
   "include": ["src/**/*", "server/**/*"],
   "exclude": [
