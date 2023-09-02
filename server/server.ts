@@ -3,11 +3,13 @@ import path from 'path';
 import apiRouter from './routes/api';
 import { isHttpError } from 'http-errors';
 import userRouter from './routes/userRoutes';
+import cors from 'cors';
 
 const app: Express = express();
 const port = 8080;
 
 // Middleware to parse json and urlencoded data
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
