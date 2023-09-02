@@ -30,8 +30,8 @@ export default function App() {
     return (
         <div className='app-container'>
             <Navbar />
-            {/* <SearchResults flights={flights} /> */}
-            <SavedFlights savedFlights={savedFlights} setSavedFlights={setSavedFlights} />
+            <SearchResults flights={flights} />
+            {/* <SavedFlights savedFlights={savedFlights} setSavedFlights={setSavedFlights} /> */}
         </div>
     )
 }
