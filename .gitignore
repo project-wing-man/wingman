@@ -1,3 +1,6 @@
 node_modules
-build
+<<<<<<< Updated upstream
 dist
+build
+.env
+.DS_Store
