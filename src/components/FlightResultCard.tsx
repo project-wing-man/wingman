@@ -8,7 +8,6 @@ import {
     Box 
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { flightCardProps } from '../../types';
 
 export default function FlightResultCard() {
     const theme = useTheme();

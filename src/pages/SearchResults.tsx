@@ -2,9 +2,12 @@ import React, { useState, useEffect, ReactElement } from 'react';
 import FlightFilter from '../components/FlightFilter';
 import Inputs from '../components/Inputs';
 import FlightResultCard from '../components/FlightResultCard';
+import { SearchResultsProps } from '../../types';
 
-export default function SearchResults() {
-    const [flights, setFlights] = useState([1, 2, 3, 4, 5, 6]);
+
+export default function SearchResults(props: SearchResultsProps) {
+
+    const { flights } = props;
 
     const flightCards: ReactElement[] = [];
     
