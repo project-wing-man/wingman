@@ -25,7 +25,7 @@ const userController: userControllerInterface = {
             const values1 = [ email ];
             const result = await query(sqlCommand1, values1);
             if (result.rows[0]) {
-                res.status(400).json({ message: "User already exists." });
+                res.status(400).json({ message: "User already exists!" });
                 return next();
             }
 
@@ -130,7 +130,7 @@ const userController: userControllerInterface = {
             next();
         }
     },
-       
+
 }
 
 export default userController;
