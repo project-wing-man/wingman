@@ -5,8 +5,8 @@ export type SearchResultsProps = {
 export type FlightResultCard = {
     airline: string,
     flightCode: string,
-    departAirport: string, 
-    arrivalAirport: string, 
+    origin: string, 
+    destination: string, 
     departTime: string, 
     arrivalTime: string,
     duration: string,
