@@ -37,4 +37,10 @@
     align-items: center;
     width: fit-content;
     overflow-y: scroll;
+    overflow: overlay;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
 }
