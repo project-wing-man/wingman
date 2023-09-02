@@ -5,6 +5,7 @@ import { isHttpError } from 'http-errors';
 import userRouter from './routes/userRoutes';
 import cors from 'cors';
 
+
 const app: Express = express();
 const port = 8080;
 
@@ -13,8 +14,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// middleware to accept requests from all origins
+app.use(cors());
+
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
+  console.log(`${req.method} ${req.path} ${req.params}`);
   next();
 });
 

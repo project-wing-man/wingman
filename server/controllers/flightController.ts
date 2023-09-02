@@ -22,8 +22,9 @@ interface flightControllerInterface {
 const flightController: flightControllerInterface = {
   fetchFlights: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      console.log('fetchFlights middleware invoked')
       const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
-      const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&nonStop=true&max=9`;
+      const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&nonStop=true&currencyCode=USD&max=9`;
 
       console.log('this is the access token from Amadeus =>', res.locals.accessToken);
 
@@ -38,12 +39,12 @@ const flightController: flightControllerInterface = {
       res.locals.flights = response.data;
       console.log('data', res.locals.flights);
 
-      const carrierCode = response.data?.data[0].itineraries[0].segments[0].carrierCode
-      const number = response.data?.data[0].itineraries[0].segments[0].number
-      const flightNumber = carrierCode + number;
-      //console.log('Carrier code is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode);
-      //console.log('Number is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.number);
-      console.log(flightNumber);
+      // const carrierCode = response.data?.data[0].itineraries[0].segments[0].carrierCode
+      // const number = response.data?.data[0].itineraries[0].segments[0].number
+      // const flightNumber = carrierCode + number;
+      // //console.log('Carrier code is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode);
+      // //console.log('Number is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.number);
+      // console.log(flightNumber);
  
       return next();
     } catch (err) {

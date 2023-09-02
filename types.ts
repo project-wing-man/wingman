@@ -2,14 +2,15 @@ export type SearchResultsProps = {
     flights: number[];
 }
 
-export type FlightResultCard = {
-    airline: string,
-    flightCode: string,
-    departAirport: string, 
-    arrivalAirport: string, 
+export type FlightResultCardProps = {
+    flightNumber: string,
+    origin: string, 
+    destination: string, 
     departTime: string, 
     arrivalTime: string,
     duration: string,
+    carrierCode: string,
+    price: string
 }
 
 export type SavedFlight = {
