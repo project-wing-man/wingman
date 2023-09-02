@@ -1,15 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    margin: 0;
+    padding: 0;
+}
+
 .app-container {
+    background-image: url(/images/sunsetFlight.png);
+    background-size: cover;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-x: hidden;
+}
+
+.search-results-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
 .results-container {
+    max-height: 85vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;
+    overflow-y: scroll;
 }
+
 /* roboto-cyrillic-ext-300-normal */
 @font-face {
   font-family: 'Roboto';

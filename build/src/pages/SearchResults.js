@@ -27,11 +27,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-const SearchResults_1 = __importDefault(require("./pages/SearchResults"));
-function App() {
-    const [flights, setFlights] = (0, react_1.useState)([1, 2, 3, 4, 5, 6]);
-    return (react_1.default.createElement("div", { className: 'app-container' },
-        react_1.default.createElement(SearchResults_1.default, { flights: flights })));
+const FlightFilter_1 = __importDefault(require("../components/FlightFilter"));
+const Inputs_1 = __importDefault(require("../components/Inputs"));
+const FlightResultCard_1 = __importDefault(require("../components/FlightResultCard"));
+function SearchResults(props) {
+    const { flights } = props;
+    const flightCards = [];
+    flights.forEach((flight) => {
+        flightCards.push(react_1.default.createElement(FlightResultCard_1.default, null));
+    });
+    (0, react_1.useEffect)(() => {
+        flights.forEach((flight) => {
+            flightCards.push(react_1.default.createElement(FlightResultCard_1.default, null));
+        });
+    }, [flights]);
+    return (react_1.default.createElement("div", { className: "search-results-container" },
+        react_1.default.createElement("div", { className: 'search-container' },
+            react_1.default.createElement(FlightFilter_1.default, null),
+            react_1.default.createElement(Inputs_1.default, null)),
+        react_1.default.createElement("div", { className: 'results-container' }, flightCards[0] ?
+            react_1.default.createElement("div", { className: 'results-container' }, ...flightCards)
+            : null)));
 }
-exports.default = App;
-//# sourceMappingURL=App.js.map
+exports.default = SearchResults;
+//# sourceMappingURL=SearchResults.js.map

@@ -1,10 +1,13 @@
-export type flightCardProps = {
+export type SearchResultsProps = {
+    flights: number[];
+}
+
+export type FlightResultCard = {
     airline: string,
-    adults: number,
-    departureTime: Date,
-    arrivalTime: Date,
-    departAirport: string,
+    flightCode: string,
+    departAirport: string, 
     arrivalAirport: string, 
-    price: string,
-    nonStop: boolean
+    departTime: string, 
+    arrivalTime: string,
+    duration: string,
 }

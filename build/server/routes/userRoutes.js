@@ -5,9 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userController_1 = __importDefault(require("../controllers/userController"));
-const cookieController_1 = __importDefault(require("../controllers/cookieController"));
 const router = express_1.default.Router();
-router.post('/sign-in', cookieController_1.default.cookieJwtAuth, userController_1.default.verifyUser, (req, res) => {
+router.post('/sign-in', userController_1.default.verifyUser, (req, res) => {
     res.status(200).json({
         signIn: res.locals.signIn,
         email: res.locals.email,

@@ -1,11 +1,11 @@
 import express, { Router, Request, Response, NextFunction } from "express";
 import userController from "../controllers/userController";
-import cookieController from "../controllers/cookieController";
+//import cookieController from "../controllers/cookieController";
 
 const router: Router = express.Router();
 
 // user sign in route
-router.post('/sign-in', cookieController.cookieJwtAuth, userController.verifyUser, (req: Request, res: Response) => {
+router.post('/sign-in', userController.verifyUser, (req: Request, res: Response) => {
     res.status(200).json({
       signIn: res.locals.signIn,
       email: res.locals.email,
