@@ -30,8 +30,8 @@ const react_1 = __importStar(require("react"));
 const FlightFilter_1 = __importDefault(require("../components/FlightFilter"));
 const Inputs_1 = __importDefault(require("../components/Inputs"));
 const FlightResultCard_1 = __importDefault(require("../components/FlightResultCard"));
-function SearchResults() {
-    const [flights, setFlights] = (0, react_1.useState)([1, 2, 3, 4, 5, 6]);
+function SearchResults(props) {
+    const { flights } = props;
     const flightCards = [];
     flights.forEach((flight) => {
         flightCards.push(react_1.default.createElement(FlightResultCard_1.default, null));
