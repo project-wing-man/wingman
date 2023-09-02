@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import PersonIcon from '@mui/icons-material/Person';
 
-const options = ['Log In', 'Profile', 'Flight Search', 'Saved Flight'];
+const options = ['Log In', 'Profile', 'Flight Search', 'Saved Flights'];
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
