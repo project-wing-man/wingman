@@ -7,21 +7,22 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const api_1 = __importDefault(require("./routes/api"));
 const http_errors_1 = require("http-errors");
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const app = (0, express_1.default)();
 const port = 8080;
 app.use(express_1.default.json());
-app.use(express_1.default.urlencoded());
-app.use('/api', api_1.default, (req, res) => {
-    res.status(200).json(res.locals.fetchFlights);
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
 });
+app.use('/api', api_1.default);
+app.use('/user', userRoutes_1.default);
 app.get('/', (req, res) => {
-    console.log('line 11');
+    res.sendFile(path_1.default.resolve(__dirname, '../index.html'));
 });
 app.get('/css/style.css', (req, res) => {
     res.sendFile(path_1.default.resolve(__dirname, '../src/index.css'));
-});
-app.get('/', (req, res) => {
-    res.sendFile(path_1.default.resolve(__dirname, '../index.html'));
 });
 app.get('/js/index.js', (req, res) => {
     res.sendFile(path_1.default.resolve(__dirname, '../src/index.tsx'));
