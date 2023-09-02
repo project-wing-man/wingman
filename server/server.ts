@@ -1,4 +1,3 @@
-
 import express, { Express, Request, Response, NextFunction } from "express";
 import path from 'path';
 import apiRouter from './routes/api';
@@ -8,53 +7,52 @@ import userRouter from './routes/userRoutes';
 const app: Express = express();
 const port = 8080;
 
+// Middleware to parse json and urlencoded data
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
-//protected route for our api
-app.use('/api', apiRouter)
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
+// Routes
+app.use('/api', apiRouter);
+app.use('/user', userRouter);
+
+// Serve the main index.html file
 app.get('/', (req: Request, res: Response) => {
-  console.log('line 11')
-  //res.send('Hello World!');
+    res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.get('/css/style.css', (req: Request, res: Response)  => {
-  res.sendFile(path.resolve(__dirname, '../src/index.css'));
+// Serve CSS and JS assets
+app.get('/css/style.css', (req: Request, res: Response) => {
+    res.sendFile(path.resolve(__dirname, '../src/index.css'));
 });
 
-//serve the index.html file
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
-});
-
-// server JS file to general path
 app.get('/js/index.js', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../src/index.tsx'));
+    res.sendFile(path.resolve(__dirname, '../src/index.tsx'));
 });
 
-app.use('/user', userRouter,)
-
-
-//404 error handling
+// 404 error handling - this should be near the end, right before the general error handler
 app.use('*', (req: Request, res: Response) => {
-  res.status(404).json({ error: 'This page does not exist' })
+    res.status(404).json({ error: 'This page does not exist' });
 });
 
+// General error handler
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
-  console.error(error);
-  let errorMessage = 'An error occurred in unknown express middleware';
-  let statusCode = 400;
-  if (isHttpError(error)) {
-    statusCode = error.status;
-    errorMessage = error.message;
-  }
-  res.status(statusCode).json({ error: errorMessage })
+    console.error(error);
+    let errorMessage = 'An error occurred in unknown express middleware';
+    let statusCode = 400;
+    if (isHttpError(error)) {
+        statusCode = error.status;
+        errorMessage = error.message;
+    }
+    res.status(statusCode).json({ error: errorMessage });
 });
-
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${port}`);
 });
 
 export default app;

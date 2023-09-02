@@ -1,101 +1,136 @@
-const SALT_WORK_FACTOR = 10;
 import bcrypt from 'bcrypt';
-import { pool, PG_URI, query } from '../database/model'
+import { query } from '../database/model';
 import { Request, Response, NextFunction } from "express";
+
+const SALT_WORK_FACTOR = 10;
 
 interface userControllerInterface {
     createUser: (req: Request, res: Response, next: NextFunction) => Promise<void>, 
     verifyUser: (req: Request, res: Response, next: NextFunction) => Promise<void>, 
     changeHomeAirport: (req: Request, res: Response, next: NextFunction) => Promise<void>, 
-  }
-  
-  const userController: userControllerInterface = {
-    createUser: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-        const { email, password, name, homeAirport } = req.body;
-        if (!email || !password || !name|| !homeAirport) return next('Error in userController.createUser: not given all necessary inputs');
-        //finding if user already exists
-      try {
-        const sqlCommand1 = `
-          SELECT * from users WHERE email = $1;
-        `;
-        const values1 = [ email ];
-        const result = await query(sqlCommand1, values1);
-        if (result.rows[0]) {
-          res.locals.createdUser = false;
-          return next();
+    saveFlight: (req: Request, res: Response, next: NextFunction) => Promise<void>
+}
+
+const userController: userControllerInterface = {
+    createUser: async (req, res, next) => {
+        const { email, password, name, home_airport } = req.body;
+
+        if (!email || !password || !name || !home_airport) {
+            res.status(400).send('Error in userController.createUser: Not given all necessary inputs');
+            return next();
         }
-      } catch(err){
-        return next('Error in userController.createUser: finding if user already exists')
-      }
-      //if user does not already exist, create user
-      try{
-        const sqlCommand2 = `
-          INSERT INTO users (name, email, password, homeAirport)
-          VALUES ($1, $2, $3, $4)
-        `; 
-      //hash password before saving user info to db
-      const hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-      //save info to db
-      const values2 = [ name, email, hashedPassword, homeAirport ];
-      const result = await query(sqlCommand2, values2);
-      res.locals.createdUser = true;
-      } catch(err){
-        return next('Error in userController.createUser: adding a new user to users table in the db');
-      }
-      return next();
+
+        try {
+            const sqlCommand1 = `SELECT * from users WHERE email = $1;`;
+            const values1 = [ email ];
+            const result = await query(sqlCommand1, values1);
+            if (result.rows[0]) {
+                res.status(400).json({ message: "User already exists." });
+                return next();
+            }
+
+            const sqlCommand2 = `INSERT INTO users (name, email, password, home_airport) VALUES ($1, $2, $3, $4) RETURNING *;`; 
+            const hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
+            const values2 = [ name, email, hashedPassword, home_airport ];
+            await query(sqlCommand2, values2);
+            
+            res.status(201).json({ message: "User created successfully." });
+            next();
+        } catch (err) {
+            console.error("Error during user INSERT operation:", err);
+            res.status(500).send('Error adding new user to database.');
+            next();
+        }
     },
 
-    verifyUser: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      const { email, password } = req.body;
-      if (!email || !password) return next('Error in userController.verifyUser: not given all necessary inputs');
-    //retrieve user info by email
-    try {
-      const sqlCommand = `
-        SELECT * FROM users WHERE email = $1;
-      `;
-      const values = [ email ];
-      const result = await query(sqlCommand, values);
-      //if user doesn't exist, they cannot sign in
-      if (!result.rows[0]) {
-        res.locals.signIn = false;
-        return next();
-      };
+    verifyUser: async (req, res, next) => {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            res.status(400).send('Error in userController.verifyUser: Not given all necessary inputs');
+            return next();
+        }
 
-      //if user exists, verify pw is correct
-      const matched = await bcrypt.compare(password, result.rows[0].password);
-      console.log(matched);
-      //if pw matches, sign in is successful. save user info & return to client
-      if (matched) {
-        res.locals.signIn = true;
-        res.locals.email = result.rows[0].email;
-        res.locals.name = result.rows[0].name;
-        res.locals.homeAirport = result.rows[0].homeAirport;
-      }
-    } catch(err) {
-      return next('Error in userController.verifyUser: verifying the user in the users table of the db');
-    }
-    return next();
-   },
-   changeHomeAirport: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { email, homeAirport } = req.body;
+        try {
+            const sqlCommand = `SELECT * FROM users WHERE email = $1;`;
+            const values = [ email ];
+            const result = await query(sqlCommand, values);
 
-    // update the home airport of user given updated home airport and user email
-    const values = [ email, homeAirport ];
-    const sqlCommand = `
-      UPDATE users
-      SET homeAirport = $2
-      WHERE email = $1
-      RETURNING *;
-    `;
+            if (!result.rows[0]) {
+                res.status(404).json({ message: "User not found." });
+                return next();
+            }
 
-    try {
-      const result = await query(sqlCommand, values);
-      res.locals.homeAirport = result.rows[0].homeAirport;
-      return next();
-    } catch(err) {
-      return next('Error in userController.changeHomeAirport: location not changed');
-    }
-   }
-  }
+            const matched = await bcrypt.compare(password, result.rows[0].password);
+            if (matched) {
+                res.status(200).json({
+                    message: "Sign In successful.",
+                    email: result.rows[0].email,
+                    name: result.rows[0].name,
+                    home_airport: result.rows[0].home_airport
+                });
+                next();
+            } else {
+                res.status(401).json({ message: "Incorrect password." });
+                next();
+            }
+        } catch(err) {
+            console.error("Error during user verification:", err);
+            res.status(500).send('Error verifying user.');
+            next();
+        }
+    },
 
-  export default userController
+    changeHomeAirport: async (req, res, next) => {
+        const { email, home_airport } = req.body;
+
+        const sqlCommand = `UPDATE users SET home_airport = $2 WHERE email = $1 RETURNING *;`;
+        const values = [ email, home_airport ];
+
+        try {
+            const result = await query(sqlCommand, values);
+            res.status(200).json({ home_airport: result.rows[0].home_airport });
+            next();
+        } catch(err) {
+            console.error("Error updating home airport:", err);
+            res.status(500).send('Location not changed.');
+            next();
+        }
+    },
+
+    saveFlight: async (req, res, next) => {
+        const { id } = req.params;
+        console.log('REQ.PARAMS', req.params)
+        const { 
+            duration, 
+            carrierCode, 
+            number, 
+            grandTotal, 
+            departureIataCode, 
+            departureDate, 
+            departureTime, 
+            arrivalIataCode 
+        } = req.body; 
+
+        const sqlCommand = `
+        INSERT INTO flights (user_id, duration, carrier_code, number, grand_total, departure_iata_code, departure_date, departure_time, arrival_iata_code)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        RETURNING *
+        `;
+        const values = [ 
+            id, duration, carrierCode, number, grandTotal, departureIataCode, departureDate, departureTime, arrivalIataCode 
+        ];
+  
+        try {
+            const result = await query(sqlCommand, values);
+            res.locals.flight = result.rows[0];
+            next();
+        } catch(err) {
+            console.error("Error saving flight to database:", err);
+            res.locals.error = 'Flight not added.';
+            next();
+        }
+    },
+       
+}
+
+export default userController;
