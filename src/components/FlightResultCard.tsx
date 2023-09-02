@@ -38,7 +38,7 @@ export default function FlightResultCard(props: FlightResultCardProps) {
         <>
             <Card variant='outlined' sx={{maxWidth: 1300, minWidth: 1000, minHeight: 170, margin: '.5em', border: 3, borderRadius: 4, borderColor: 'orange', opacity: '80%' }}>
                 <CardContent sx={{ display: "flex", maxWidth: '100%'}} >
-                    <Box sx={{}}>
+                    <Box>
                         <img src=""></img>
                     </Box>
                     <Box sx={{ display: "flex" , flexDirection: "column", width: '60%' }}>
@@ -67,7 +67,7 @@ export default function FlightResultCard(props: FlightResultCardProps) {
                         <Typography sx={{ fontSize: 40 }} color="text.primary" gutterBottom>
                             ${price}
                         </Typography>
-                        <Button variant='contained' size="small" onClick={} sx={{opacity: '100%'}}>Save This Flight</Button>
+                        <Button variant='contained' size="small" sx={{opacity: '100%'}}>Save This Flight</Button>
                     </Box>
                 </CardContent>
             </Card>

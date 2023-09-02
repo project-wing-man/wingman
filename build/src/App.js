@@ -49,12 +49,14 @@ function App() {
                 "adults": "1",
                 "departureDate": "2023-10-10"
             });
-            const flightArr = response.data;
+            const flightArr = response.data.data;
+            console.log('this is the flights arr obj in App', flightArr);
             setFlights(flightArr);
         });
     }
-    getFlights();
-    console.log(flights);
+    (0, react_1.useEffect)(() => {
+        getFlights();
+    }, []);
     return (react_1.default.createElement("div", { className: 'app-container' },
         react_1.default.createElement(NavBar_1.default, null),
         react_1.default.createElement(SearchResults_1.default, { flights: flights })));

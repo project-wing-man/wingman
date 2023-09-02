@@ -20,12 +20,12 @@ export default function SavedFlights(props: SavedFlightsProps) {
     const flightCards: ReactElement[] = [];
     
     savedFlights.forEach((flight) => {
-        flightCards.push(<FlightResultCard />)
+        // flightCards.push(<FlightResultCard />)
     })
 
     useEffect( () => {
         savedFlights.forEach((flight) => {
-            flightCards.push(<FlightResultCard />)
+            // flightCards.push(<FlightResultCard />)
         })
     }, [savedFlights])    
 

@@ -2,7 +2,6 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import path from 'path';
 import apiRouter from './routes/api';
 import { isHttpError } from 'http-errors';
-const cors = require('cors');
 import userRouter from './routes/userRoutes';
 import cors from 'cors';
 

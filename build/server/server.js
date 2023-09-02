@@ -7,13 +7,14 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const api_1 = __importDefault(require("./routes/api"));
 const http_errors_1 = require("http-errors");
-const cors = require('cors');
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const port = 8080;
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use(cors());
+app.use((0, cors_1.default)());
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.path} ${req.params}`);
     next();
