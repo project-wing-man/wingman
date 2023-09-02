@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import SearchResults from './pages/SearchResults';
+import SavedFlights from './pages/SavedFlights';
 import Navbar from './components/NavBar';
 import axios from 'axios';
+import { SavedFlight } from '../types';
 
 export default function App() {
     const [flights, setFlights] = useState([]);
+    const [savedFlights, setSavedFlights] = useState([]);
 
     //@ts-ignore
     async function getFlights() {
@@ -27,7 +30,8 @@ export default function App() {
     return (
         <div className='app-container'>
             <Navbar />
-            <SearchResults flights={flights} />
+            {/* <SearchResults flights={flights} /> */}
+            <SavedFlights savedFlights={savedFlights} setSavedFlights={setSavedFlights} />
         </div>
     )
 }
