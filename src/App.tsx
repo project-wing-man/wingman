@@ -1,7 +1,13 @@
+
+
+
 import React, { useState, useEffect } from 'react';
+import { ReactElement } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import SearchResults from './pages/SearchResults';
 import SavedFlights from './pages/SavedFlights';
 import Navbar from './components/NavBar';
+import Homepage from './components/Homepage';
 import axios from 'axios';
 import { SavedFlight } from '../types';
 
@@ -32,6 +38,16 @@ export default function App() {
             <Navbar />
             <SearchResults flights={flights} />
             {/* <SavedFlights savedFlights={savedFlights} setSavedFlights={setSavedFlights} /> */}
+{/*          
+            // Homepage redirect to SearchResults upon submit
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Homepage />} />
+                    <Route path="/results" element={<SearchResults flights={flights}/>} />
+                </Routes>
+            </Router> */}
         </div>
+
+
     )
 }

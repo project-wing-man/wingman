@@ -5,9 +5,9 @@ import { isHttpError } from 'http-errors';
 import userRouter from './routes/userRoutes';
 import cors from 'cors';
 
-
 const app: Express = express();
 const port = 8080;
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 // Middleware to parse json and urlencoded data
 app.use(cors());
