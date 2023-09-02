@@ -27,7 +27,7 @@ const userController = {
             const values1 = [email];
             const result = yield (0, model_1.query)(sqlCommand1, values1);
             if (result.rows[0]) {
-                res.status(400).json({ message: "User already exists." });
+                res.status(400).json({ message: "User already exists!" });
                 return next();
             }
             const sqlCommand2 = `INSERT INTO users (name, email, password, home_airport) VALUES ($1, $2, $3, $4) RETURNING *;`;

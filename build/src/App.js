@@ -28,9 +28,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const SearchResults_1 = __importDefault(require("./pages/SearchResults"));
+const NavBar_1 = __importDefault(require("./components/NavBar"));
 function App() {
     const [flights, setFlights] = (0, react_1.useState)([1, 2, 3, 4, 5, 6]);
     return (react_1.default.createElement("div", { className: 'app-container' },
+        react_1.default.createElement(NavBar_1.default, null),
         react_1.default.createElement(SearchResults_1.default, { flights: flights })));
 }
 exports.default = App;

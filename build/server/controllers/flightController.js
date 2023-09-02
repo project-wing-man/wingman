@@ -24,7 +24,6 @@ var amadeus = new Amadeus({
 });
 const flightController = {
     fetchFlights: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a, _b;
         try {
             const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
             const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&nonStop=true&max=9`;
@@ -37,10 +36,6 @@ const flightController = {
             console.log('flight response is here --->', response);
             res.locals.flights = response.data;
             console.log('data', res.locals.flights);
-            const carrierCode = (_a = response.data) === null || _a === void 0 ? void 0 : _a.data[0].itineraries[0].segments[0].carrierCode;
-            const number = (_b = response.data) === null || _b === void 0 ? void 0 : _b.data[0].itineraries[0].segments[0].number;
-            const flightNumber = carrierCode + number;
-            console.log(flightNumber);
             return next();
         }
         catch (err) {

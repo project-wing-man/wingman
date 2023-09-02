@@ -3,14 +3,18 @@ import FlightFilter from '../components/FlightFilter';
 import Inputs from '../components/Inputs';
 import FlightResultCard from '../components/FlightResultCard';
 import { SearchResultsProps } from '../../types';
+import axios from 'axios';
 
 
 export default function SearchResults(props: SearchResultsProps) {
+    
+    // const flights = await axios.get('/api',)
 
     const { flights } = props;
 
+
     const flightCards: ReactElement[] = [];
-    
+    //@ts-ignore
     flights.forEach((flight) => {
         flightCards.push(<FlightResultCard />)
     })

@@ -38,12 +38,12 @@ const flightController: flightControllerInterface = {
       res.locals.flights = response.data;
       console.log('data', res.locals.flights);
 
-      const carrierCode = response.data?.data[0].itineraries[0].segments[0].carrierCode
-      const number = response.data?.data[0].itineraries[0].segments[0].number
-      const flightNumber = carrierCode + number;
-      //console.log('Carrier code is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode);
-      //console.log('Number is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.number);
-      console.log(flightNumber);
+      // const carrierCode = response.data?.data[0].itineraries[0].segments[0].carrierCode
+      // const number = response.data?.data[0].itineraries[0].segments[0].number
+      // const flightNumber = carrierCode + number;
+      // //console.log('Carrier code is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode);
+      // //console.log('Number is:', response?.data?.data?.[0]?.itineraries?.[0]?.segments?.[0]?.number);
+      // console.log(flightNumber);
  
       return next();
     } catch (err) {
