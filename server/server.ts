@@ -2,7 +2,9 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import path from 'path';
 import apiRouter from './routes/api';
 import { isHttpError } from 'http-errors';
+const cors = require('cors');
 import userRouter from './routes/userRoutes';
+
 
 const app: Express = express();
 const port = 8080;
@@ -11,8 +13,11 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// middleware to accept requests from all origins
+app.use(cors());
+
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
+  console.log(`${req.method} ${req.path} ${req.params}`);
   next();
 });
 

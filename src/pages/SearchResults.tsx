@@ -7,16 +7,11 @@ import axios from 'axios';
 
 
 export default function SearchResults(props: SearchResultsProps) {
-    
-    // const flights = await axios.get('/api',)
+
 
     const { flights } = props;
-
-    const flightCards: ReactElement[] = [];
+    const [flightCards, setFlightCards] = useState([]);
     
-
-    }
-
     function convertDurationToHoursAndMinutes(durationString: string): string {
         let result = '';
 
@@ -24,46 +19,80 @@ export default function SearchResults(props: SearchResultsProps) {
             for (let j = i + 1; j < durationString.length; j++) {
                 if ( durationString[j] == 'H' || durationString[j] == 'M') {
                     result += durationString.slice(i, j);
-                    const timeMeasurement = (durationString[j] == 'H') ? 'Hours and ' : ' Minutes';
+                    const timeMeasurement = (durationString[j] == 'H') ? `h ` : 'm';
                     result += timeMeasurement;
                     i = j + 1;
-                    break;
+                    j = i + 1;
                 }
             }
         }
+        
+        return (result.includes('m')) ? result : result + '0m';
+    }
 
-        return result;
+    function convertDateToHoursAndMins(isoString: string): string {
+
+        const unformattedDate = new Date(isoString);
+        const militaryHours = unformattedDate.getHours();
+
+        const hours = (militaryHours > 12 ) ? militaryHours - 12 : militaryHours;
+        const minutes = (unformattedDate.getMinutes() === 0) ? '00' : unformattedDate.getMinutes();
+        const timeClarifier = (militaryHours > 12) ? 'pm' : 'am';
+        const formattedDate = `${hours}:${minutes}${timeClarifier}`;
+
+        return formattedDate;
+
     }
 
     function createFlightCards() {
-        flights.forEach((flight) => {
-            // const encodedDuration = flight.data.data.itineraties[0].duration;
-            // const duration = convertDurationToHoursAndMinutes(encodedDuration);
-            
-            // const flightData = flight.data.data.itineraries[0];
-            // const flightCardProps = {};
-    
-            //const flightCardProps.origin = flightData.segments[0].departure.iataCode;
-            //const flightCardProps.destination = flightData.segments[0].arrival.iataCode;
-            //const flightCardProps.departureTime = flightData.segments[0].departure.at;
-            //const flightCardProps.arrivalTime = flightData.segments[0].arrival.at;
-            //const flightCardProps.carrierCode = flightData.segments[0].carrierCode;
-            //const flightCardProps.flightNumber = flightData.segments[0].number; 
-            //const flightCardProps.price = flightData.price.total;
-            //const flightCardProps.duration = duration;
+        //@ts-ignore
+        const updatedFlightCards = []
 
-            // flightCards.push(<FlightResultCard props={flightCardProps} />)
-            flightCards.push(<FlightResultCard />)
+        //@ts-ignore
+        flights.forEach((flight) => {
+            //@ts-ignore
+            const flightData = flight.itineraries[0];
+
+            const encodedDuration = flightData.duration;
+            const duration = convertDurationToHoursAndMinutes(encodedDuration);
+            const departureTime = convertDateToHoursAndMins(flightData.segments[0].departure.at);
+            const arrivalTime = convertDateToHoursAndMins(flightData.segments[0].arrival.at);
+
+            //@ts-ignore
+            const price = flight.price.grandTotal;
+
+            const flightCardProps = {
+                origin: flightData.segments[0].departure.iataCode,
+                destination: flightData.segments[0].arrival.iataCode,
+                carrierCode: flightData.segments[0].carrierCode,
+                flightNumber: flightData.segments[0].number,
+                departureTime,
+                arrivalTime,
+                price,
+                duration
+            };
+
+            updatedFlightCards.push(<FlightResultCard                
+                origin={flightCardProps.origin}
+                destination={flightCardProps.destination}
+                departTime={flightCardProps.departureTime}
+                arrivalTime={flightCardProps.arrivalTime} 
+                carrierCode={flightCardProps.carrierCode}
+                flightNumber={flightCardProps.flightNumber}
+                price={flightCardProps.price}
+                duration={flightCardProps.duration}
+                />)
+
+            console.log('this is the array of flight cards to be rendered => ', flightCards)
+
         })
+        //@ts-ignore
+        setFlightCards(updatedFlightCards);
 
     }
 
-    createFlightCards();
-
     useEffect( () => {
-        flights.forEach((flight) => {
-            flightCards.push(<FlightResultCard />)
-        })
+         createFlightCards();
     }, [flights])    
 
     return (

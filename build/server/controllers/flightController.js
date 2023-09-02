@@ -25,6 +25,7 @@ var amadeus = new Amadeus({
 const flightController = {
     fetchFlights: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            console.log('fetchFlights middleware invoked');
             const { originLocationCode, destinationLocationCode, adults, departureDate } = req.body;
             const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=${adults}&nonStop=true&max=9`;
             console.log('this is the access token from Amadeus =>', res.locals.accessToken);
