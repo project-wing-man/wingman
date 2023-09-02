@@ -1,4 +1,9 @@
 node_modules
+<<<<<<< Updated upstream
 dist
 build
 .env
+=======
+build
+dist
+>>>>>>> Stashed changes
