@@ -5,12 +5,15 @@ import React, { useState, useEffect } from 'react';
 import { ReactElement } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import SearchResults from './pages/SearchResults';
+import SavedFlights from './pages/SavedFlights';
 import Navbar from './components/NavBar';
 import Homepage from './components/Homepage';
 import axios from 'axios';
+import { SavedFlight } from '../types';
 
 export default function App() {
     const [flights, setFlights] = useState([]);
+    const [savedFlights, setSavedFlights] = useState([]);
 
     //@ts-ignore
     async function getFlights() {
