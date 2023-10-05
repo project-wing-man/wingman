@@ -17,6 +17,7 @@ interface flightControllerInterface {
   fetchFlights: (req: Request, res: Response, next: NextFunction) => Promise<void>, 
   amadeusAuth: (req: Request, res: Response, next: NextFunction) => Promise<void>,
   savedFlights: (req: Request, res: Response, next: NextFunction) => Promise<void>
+  deleteFlight: (req: Request, res: Response, next: NextFunction) => Promise<void>
 }
 
 const flightController: flightControllerInterface = {
@@ -133,6 +134,17 @@ const flightController: flightControllerInterface = {
     } catch(err) {
         return next(createHttpError(400, `Invalid command was inserted. Error: ${err}`));
     }
+  },deleteFlight: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const command = `DELETE FROM flights WHERE user_id = $1`;
+    const values = [req.params.id];
+    try {
+      const deletedFlight = await query(command, values);
+      res.locals.deletedFlight = deletedFlight.rowCount;
+      return next();
+    } catch (err) {
+      return next(createHttpError(400, 'Could not delete flight in flightController.deleteFlight'))
+    }
+
   }
 }
 export default flightController;
